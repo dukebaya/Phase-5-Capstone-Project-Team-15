@@ -2,16 +2,13 @@
 import base64
 import pandas as pd
 import streamlit as st
-from joblib import load
+import joblib
 from flask import Flask,request,render_template, jsonify
 import numpy as np
-import pandas as pd
-import joblib
-import base64
+from joblib import load
 import statsmodels
 import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
-from joblib import load
 
 # Load pre-trained model
 model = load('model.pkl')
@@ -70,7 +67,7 @@ def predict_activity(input_df):
 # Main function for Streamlit web app
 def main():
     # Set page title
-    st.set_page_config(page_title="ARABUKO SOKOKE", page_icon="📞")
+    st.set_page_config(page_title="ARABUKO SOKOKE", page_icon="Forest Icon.png")
     #st.image('Elephant.jpg', width=400)
 
     # Display header
