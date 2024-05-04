@@ -5,6 +5,7 @@ import pandas as pd
 import joblib
 import base64
 import statsmodels
+import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
 from joblib import load
 
@@ -13,7 +14,7 @@ application=Flask(__name__)
 app=application
 
 # Load pre-trained model
-model = joblib.load('trained_model.pkl')
+model = load('model.pkl')
 
 # Define function to make predictions using the model
 def predict(features):
