@@ -3,10 +3,12 @@ import base64
 import pandas as pd
 import streamlit as st
 import numpy as np
+import joblib
 from joblib import load
 import statsmodels
 import xgboost as xgb
 from sklearn.preprocessing import StandardScaler
+from altair import Chart
 
 # Load pre-trained model
 model = load('model.pkl')
@@ -32,17 +34,12 @@ img = get_img_as_base64("image 4.JPG")
 #predicted_category = predict_activity(input_df)
 #print("Prediction Category:", predicted_category)
 def predict_activity(input_df):
-    """
-    Predict the level of illegal activity based on input features using a trained model.
-
-    Args:
-    - input_df (DataFrame): DataFrame containing input features.
-    - model (object): Trained machine learning model.
-
-    Returns:
-    - str: Category indicating the level of illegal activity.
-    """
     try:
+        # Make sure input_df has the correct data types
+        numeric_columns = ['year', 'dayofyear', 'dayofweek', 'month', 'quarter', 'hour']
+        for column in numeric_columns:
+            input_df[column] = pd.to_numeric(input_df[column], errors='coerce').astype('Int64')
+
         # Predict using the provided model
         predictions = model.predict(input_df)
 
@@ -54,12 +51,13 @@ def predict_activity(input_df):
         elif predictions >= 9.0:
             return 'Moderate'
         else:
-            return 'Less Likely'
-    
+            return 'Less Likely' 
+        
     except Exception as e:
         # Handle exceptions and return a default category
         print(f"An error occurred: {e}")
         return 'Unknown'
+
 
 
 # Main function for Streamlit web app
