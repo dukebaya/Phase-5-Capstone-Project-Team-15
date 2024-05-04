@@ -2,7 +2,6 @@
 import base64
 import pandas as pd
 import streamlit as st
-from flask import Flask,request,render_template, jsonify
 import numpy as np
 from joblib import load
 import statsmodels
